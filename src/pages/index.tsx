@@ -5,9 +5,7 @@ import styles from "@/styles/Home.module.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
-type test = { test: string };
-
-export default function Home({ test }: test) {
+export default function Home() {
 	return (
 		<>
 			<Head>
@@ -119,10 +117,4 @@ export default function Home({ test }: test) {
 			</main>
 		</>
 	);
-}
-
-export async function getStaticProps() {
-	return {
-		props: { test: process.env.test }, // will be passed to the page component as props
-	};
 }
