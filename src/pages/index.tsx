@@ -5,7 +5,7 @@ import styles from "@/styles/Home.module.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+export default function Home({ test }) {
 	return (
 		<>
 			<Head>
@@ -23,7 +23,7 @@ export default function Home() {
 						Get started by editing&nbsp;
 						<code className={styles.code}>src/pages/index.tsx</code>
 					</p>
-					<div>{process.env.test}</div>
+					<div>{test}</div>
 					<div>
 						<a
 							href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
@@ -118,4 +118,10 @@ export default function Home() {
 			</main>
 		</>
 	);
+}
+
+export async function getStaticProps() {
+	return {
+		props: { test: process.env.test }, // will be passed to the page component as props
+	};
 }
