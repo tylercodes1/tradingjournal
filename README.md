@@ -107,6 +107,35 @@ These can be custom events or funnels
 
 tbd
 
+## Database Options
+
+| Provider                    | Free Tier       | Storage Limit | Max Connections | Max Database Instances |
+| --------------------------- | --------------- | ------------- | --------------- | ---------------------- |
+| Amazon Web Services (AWS)   | AWS Free Tier   | 30 GB         | N/A             | N/A                    |
+| Google Cloud Platform (GCP) | Always Free     | 5 GB          | 20              | 1                      |
+| Microsoft Azure             | Azure Free Tier | 250 GB        | 128             | 1                      |
+| Oracle Cloud                | Free Tier       | 20 GB         | N/A             | 2                      |
+| MongoDB Atlas               | Free Cluster    | 512 MB        | N/A             | 1                      |
+| Firebase                    | Spark Plan      | 1 GB          | 100             | 1                      |
+| Heroku                      | Hobby Dev       | 10k Rows      | N/A             | 10                     |
+| IBM Cloud                   | Lite Plan       | 1 GB          | N/A             | 1                      |
+| Alibaba Cloud               | Free Trial      | 40 GB         | 5               | 2                      |
+| ScaleGrid                   | Free Plan       | 10 MB         | N/A             | 1                      |
+
+_Created by ChatGPT_
+
+### [Google Cloud Platform][googleCloudPlatform]
+
+Their cloud storage free-tier options has the follow rate limits:
+
+-  5 GB-months of regional storage (US regions only) per month
+-  5,000 Class A Operations per month
+-  50,000 Class B Operations per month
+-  100 GB network egress from North America to all region destinations (excluding China and Australia) per month
+
+To start, we will implement GCP for page view counts.
+
 <!-- LINKS -->
 
 [customEvents]: https://developers.google.com/analytics/devguides/collection/gtagjs/events
+[googleCloudPlatform]: https://cloud.google.com/free/docs/free-cloud-features#storage
