@@ -18,11 +18,12 @@ body {
 }
 
 body {
-  height: 100vh;
+  height: calc(100vh - var(--navbar-height));
   width: 100vw;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  margin-top: var(--navbar-height);
 }
 
 :root {
@@ -32,5 +33,5 @@ body {
   --light-secondary-color-selected: #a6b8a4;
   --light-secondary-font-color: #f5f1ea;
   --font-sans: "Inter", sans-serif;
-  --navbar-height: 60px;
+  --navbar-height: 56px;
 }

@@ -5,7 +5,6 @@ import { NavLink } from "react-router";
 import Backdrop from "../Backdrop/Backdrop";
 export default function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  console.log(navLinks);
   return (
     <nav className={styles.navbar}>
       <div className={styles.navContainer}>

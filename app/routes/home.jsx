@@ -1,5 +1,10 @@
 import { useLoaderData } from "react-router";
 import Table from "../components/Table/Table";
+import {
+  getPolymarketLists,
+  getPolymarketTags,
+  getPolymarketMarkets,
+} from "../data/api/loaderData";
 
 export function meta({}) {
   return [
@@ -10,34 +15,59 @@ export function meta({}) {
 
 // Server-side loader
 export async function loader() {
-  // Example: fetch data from DB or API
-  const users = [
-    { id: 1, name: "Alice" },
-    { id: 2, name: "Bob" },
-  ];
-  return users; // only runs server-side
+  const tagListData = await getPolymarketMarkets();
+  return tagListData; // only runs server-side
+}
+
+function getCompany(s) {
+  if (s.includes("Broadcom")) return "Broadcom";
+
+  const match = s.match(/Will\s+(.*?)\s*\(/i);
+  return match ? match[1] : null;
+}
+
+function getClosed(endDateIso) {
+  const today = new Date();
+  const endDate = new Date(endDateIso);
+  return today > endDate ? "✅" : "";
+}
+
+function getEndDate(endDate) {
+  return new Date(endDate).toLocaleDateString("en-US");
+}
+
+function getVolume(volume) {
+  return Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(volume);
+}
+
+function getOdds(outcomes) {
+  const odds = JSON.parse(outcomes)[0];
+
+  const percent = parseFloat(odds) * 100;
+  const formatted = percent.toFixed(2) + "%";
+  return formatted;
 }
 
 export default function Home() {
-  const users = useLoaderData();
-  console.log(users);
-
+  const tld = useLoaderData();
+  const tagListData = tld.filter(
+    (item) => !item.question.toLowerCase().includes("MrBeast".toLowerCase())
+  );
   const columns = [
-    { header: "Name", accessor: "name" },
-    { header: "Age", accessor: "age" },
-    { header: "Email", accessor: "email" },
-  ];
-
-  const data = [
-    { name: "Alice", age: 25, email: "alice@example.com" },
-    { name: "Bob", age: 30, email: "bob@example.com" },
-    { name: "Charlie", age: 22, email: "charlie@example.com" },
+    { header: "Company", accessor: "question", transformer: getCompany },
+    { header: "End Date", accessor: "endDateIso", transformer: getEndDate },
+    { header: "Volume", accessor: "volume", transformer: getVolume },
+    { header: "Finished", accessor: "endDateIso", transformer: getClosed },
+    { header: "Outcomes", accessor: "outcomes" },
+    { header: "Market Odds", accessor: "outcomePrices", transformer: getOdds },
   ];
 
   return (
     <>
-      {/* <Table columns={columns} data={data} /> */}
-      <div>{JSON.toString(users)}</div>
+      <Table columns={columns} data={tagListData} />
     </>
   );
 }
