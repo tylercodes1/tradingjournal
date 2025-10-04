@@ -51,17 +51,32 @@ function getOdds(outcomes) {
   return formatted;
 }
 
+function getLastTradedPrice(lastTradedPrice) {
+  const num = Number(lastTradedPrice);
+  if (num < 0.01) return 0;
+
+  if (num > 0.99) return 1;
+
+  return num;
+}
+
 export default function Home() {
   const tld = useLoaderData();
   const tagListData = tld.filter(
     (item) => !item.question.toLowerCase().includes("MrBeast".toLowerCase())
   );
+  console.log(tagListData);
   const columns = [
     { header: "Company", accessor: "question", transformer: getCompany },
     { header: "End Date", accessor: "endDateIso", transformer: getEndDate },
     { header: "Volume", accessor: "volume", transformer: getVolume },
     { header: "Finished", accessor: "endDateIso", transformer: getClosed },
     { header: "Market Odds", accessor: "outcomePrices", transformer: getOdds },
+    {
+      header: "Outcome",
+      accessor: "lastTradePrice",
+      transformer: getLastTradedPrice,
+    },
   ];
 
   return (
