@@ -42,7 +42,7 @@ export default function Table({ columns, data }) {
                     }}
                   >
                     {col.transformer
-                      ? col.transformer(row[col.accessor])
+                      ? col.transformer(row[col.accessor], row)
                       : row[col.accessor]}
                   </td>
                 );

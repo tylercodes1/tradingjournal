@@ -18,7 +18,7 @@ export async function getPolymarketMarkets() {
   const params = new URLSearchParams({
     limit: "100",
     tag_id: "1013",
-    order: "endDate",
+    order: "eventStartTime",
   });
   return fetch(
     `https://gamma-api.polymarket.com/markets?${params.toString()}`,

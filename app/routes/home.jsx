@@ -33,6 +33,7 @@ function getClosed(endDateIso) {
 }
 
 function getEndDate(endDate) {
+  console.log(endDate);
   return new Date(endDate).toLocaleDateString("en-US");
 }
 
@@ -51,11 +52,16 @@ function getOdds(outcomes) {
   return formatted;
 }
 
-function getLastTradedPrice(lastTradedPrice) {
+function getLastTradedPrice(lastTradedPrice, row) {
   const num = Number(lastTradedPrice);
-  if (num < 0.01) return "Miss";
+  const eventStartTime = row["eventStartTime"];
+  const today = new Date();
+  const endDate = new Date(eventStartTime);
+  const closed = today > endDate;
+  console.log(num, closed);
+  if (num < 0.01 && closed) return "Miss";
 
-  if (num > 0.99) return "Beat";
+  if (num > 0.99 && closed) return "Beat";
 
   return "";
 }
@@ -63,14 +69,18 @@ function getLastTradedPrice(lastTradedPrice) {
 export default function Home() {
   const tld = useLoaderData();
   const tagListData = tld.filter(
-    (item) => !item.question.toLowerCase().includes("MrBeast".toLowerCase())
+    (item) =>
+      !(
+        item.question.toLowerCase().includes("MrBeast".toLowerCase()) ||
+        item.question.toLowerCase().includes("Broadcom".toLowerCase())
+      )
   );
   console.log(tagListData);
   const columns = [
     { header: "Company", accessor: "question", transformer: getCompany },
-    { header: "End Date", accessor: "endDateIso", transformer: getEndDate },
+    { header: "End Date", accessor: "eventStartTime", transformer: getEndDate },
     { header: "Volume", accessor: "volume", transformer: getVolume },
-    { header: "Finished", accessor: "endDateIso", transformer: getClosed },
+    { header: "Finished", accessor: "eventStartTime", transformer: getClosed },
     {
       header: "Outcome",
       accessor: "lastTradePrice",
