@@ -83,7 +83,7 @@ export default function Home() {
     { header: "Finished", accessor: "eventStartTime", transformer: getClosed },
     {
       header: "Outcome",
-      accessor: "lastTradePrice",
+      accessor: "bestAsk",
       transformer: getLastTradedPrice,
     },
     { header: "Market Odds", accessor: "outcomePrices", transformer: getOdds },
