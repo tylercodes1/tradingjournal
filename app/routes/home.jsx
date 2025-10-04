@@ -71,12 +71,12 @@ export default function Home() {
     { header: "End Date", accessor: "endDateIso", transformer: getEndDate },
     { header: "Volume", accessor: "volume", transformer: getVolume },
     { header: "Finished", accessor: "endDateIso", transformer: getClosed },
-    { header: "Market Odds", accessor: "outcomePrices", transformer: getOdds },
     {
       header: "Outcome",
       accessor: "lastTradePrice",
       transformer: getLastTradedPrice,
     },
+    { header: "Market Odds", accessor: "outcomePrices", transformer: getOdds },
   ];
 
   return (
