@@ -53,11 +53,11 @@ function getOdds(outcomes) {
 
 function getLastTradedPrice(lastTradedPrice) {
   const num = Number(lastTradedPrice);
-  if (num < 0.01) return 0;
+  if (num < 0.01) return "Miss";
 
-  if (num > 0.99) return 1;
+  if (num > 0.99) return "Beat";
 
-  return num;
+  return "";
 }
 
 export default function Home() {
@@ -81,7 +81,13 @@ export default function Home() {
 
   return (
     <>
-      <Table columns={columns} data={tagListData} />
+      <div
+        style={{
+          overflowX: "auto",
+        }}
+      >
+        <Table columns={columns} data={tagListData} />
+      </div>
     </>
   );
 }
